@@ -25,6 +25,11 @@ Works with TTT and TTT2.
     2. Place in garrysmod/addons folder (`Steam\steamapps\common\GarrysMod\garrysmod\addons\ttt_discord_muter_dart`)
 2. It's now available for purchase in the Traitor Store 😊.
 
+## Variables
+|Variable|Default|Description|
+|--------|-------|-----------|
+|discord_muter_dart_time|15|How long to mute your victim after being shot. (15 seconds default. 0 = until round end).|
+
 ## Screenshots
 Coming soon.
 <!--
