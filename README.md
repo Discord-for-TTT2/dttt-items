@@ -1,5 +1,5 @@
 # [TTT] Discord Muter Dart
-![Icon](https://raw.githubusercontent.com/manix84/ttt_bomb_vest/master/images/icon/ttt_discord_muter_dart_128x.png)
+![Icon](https://raw.githubusercontent.com/manix84/ttt_discord_muter_dart/master/images/icon/ttt_discord_muter_dart_128x.png)
 
 > Pretty simple. A Traitor weapon that mutes players discord when shot with this gun.
 
