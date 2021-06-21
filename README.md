@@ -20,7 +20,7 @@ Works with TTT and TTT2.
 1. Install the Addon (preferably with the Steam Workshop)
     1. Goto "[TTT] Discord Muter Dart" on the [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2523191976)
     2. Click "Subscribe"
-    - OR
+    - **OR**
     1. [Download this addon](https://github.com/manix84/ttt_discord_muter_dart/archive/master.zip)
     2. Place in garrysmod/addons folder (`Steam\steamapps\common\GarrysMod\garrysmod\addons\ttt_discord_muter_dart`)
 2. It's now available for purchase in the Traitor Store 😊.
