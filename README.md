@@ -28,7 +28,7 @@ Works with TTT and TTT2.
 ## Variables
 |Variable|Default|Description|
 |--------|-------|-----------|
-|discord_muter_dart_time|15|How long to mute your victim after being shot. (15 seconds default. 0 = until round end).|
+|`discord_muter_dart_time`|15|How long to mute your victim after being shot. (15 seconds default. 0 = until round end).|
 
 ## Screenshots
 Coming soon.
