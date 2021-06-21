@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+ "$basetexture" "VGUI/ttt/icon_discord_muter_dart"
+ "$vertexcolor" 1
+ "$vertexalpha" 1
+ "$translucent" 1
+}
