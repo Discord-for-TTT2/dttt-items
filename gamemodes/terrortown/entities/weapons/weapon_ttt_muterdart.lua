@@ -19,7 +19,7 @@ if CLIENT then
   local str = ""
 
   if ConVarExists("discord_muter_dart_time") and GetConVar("discord_muter_dart_time"):GetInt() ~= nil then
-    str = "Mute a players discord for " .. GetConVar("discord_muter_dart_time"):GetInt() .. " seconds."
+    str = "Mute a players discord for " .. GetConVar("discord_muter_dart_time"):GetString() .. " seconds."
   else
     str = "Mute a player in discord."
   end
