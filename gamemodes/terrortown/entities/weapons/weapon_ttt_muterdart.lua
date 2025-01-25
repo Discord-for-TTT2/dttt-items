@@ -19,13 +19,13 @@ if CLIENT then
 
   local str = ""
 
-  if ConVarExists("discord_muter_dart_time") and GetConVar("discord_muter_dart_time"):GetString() ~= nil then
-    str = "Mute a players discord for " .. GetConVar("discord_muter_dart_time"):GetString() .. " seconds."
+  if ConVarExists("discord_muter_dart_time") and GetConVar("discord_muter_dart_time"):GetInt() ~= nil then
+    str = "Mute a players discord for " .. GetConVar("discord_muter_dart_time"):GetInt() .. " seconds."
   else
     str = "Mute a player in discord."
   end
 
-  print("[dttt-items][MuterDartTime]", GetConVar("discord_muter_dart_time"):GetString())
+  print("[dttt-items][MuterDartTime]", GetConVar("discord_muter_dart_time"):GetInt())
 
   SWEP.EquipMenuData = {
     name = "Discord Muter Dart",
@@ -81,7 +81,7 @@ end
 
 function SWEP:ShootBullet(damage, recoil, num_bullets, cone)
   local owner = self:GetOwner();
-  local muteTime = GetConVar("discord_muter_dart_time"):GetString();
+  local muteTime = GetConVar("discord_muter_dart_time"):GetInt();
   local dart = {};
   dart.Num = num_bullets;
   dart.Src = owner:GetShootPos();
