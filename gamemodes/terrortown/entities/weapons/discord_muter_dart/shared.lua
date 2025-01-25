@@ -1,6 +1,6 @@
 --[[Author informations]]
 --
-SWEP.Author = "Manix84";
+SWEP.Author = "Manix84"; -- The orginal author of this addon
 SWEP.Contact = "https://steamcommunity.com/id/manix84";
 
 if (SERVER) then
@@ -85,8 +85,14 @@ function SWEP:ShootBullet(damage, recoil, num_bullets, cone)
 
     if SERVER and victim:IsPlayer() then
       victim:PrintMessage(HUD_PRINTCENTER, "Shhhh...");
-      hook.Run("MutePlayer", victim, muteTime);
-      owner:PrintMessage(HUD_PRINTTALK, "[Discord Muter Dart] " .. victim:GetName() .. " is Muted for " .. muteTime .. " seconds.");
+      hook.Run("DTTTMute", victim, muteTime);
+      local str = ""
+      if muteTime then
+        str = muteTime + " seconds."
+      else
+        str = "the entire round."
+      end
+      owner:PrintMessage(HUD_PRINTTALK, "[Discord Muter Dart] " .. victim:GetName() .. " is Muted for " .. str);
     end
   end;
 
