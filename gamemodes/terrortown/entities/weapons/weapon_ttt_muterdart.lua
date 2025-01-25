@@ -25,7 +25,7 @@ if CLIENT then
     str = "Mute a player in discord."
   end
 
-  print(GetConVar("discord_muter_dart_time"):GetString())
+  print("[dttt-items][MuterDartTime]", GetConVar("discord_muter_dart_time"):GetString())
 
   SWEP.EquipMenuData = {
     name = "Discord Muter Dart",
