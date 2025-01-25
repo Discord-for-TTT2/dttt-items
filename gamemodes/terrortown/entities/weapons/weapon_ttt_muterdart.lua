@@ -16,10 +16,18 @@ if CLIENT then
   -- Path to the icon material
   SWEP.Icon = "VGUI/ttt/icon_discord_muter_dart";
 
+  local str = ""
+
+  if ConVarExists("discord_muter_dart_time") and GetConVar("discord_muter_dart_time"):GetInt() ~= nil then
+    str = "Mute a players discord for " .. GetConVar("discord_muter_dart_time"):GetInt() .. " seconds."
+  else
+    str = "Mute a player in discord."
+  end
+
   SWEP.EquipMenuData = {
     name = "Discord Muter Dart",
     type = "Weapon",
-    desc = "Mute a players discord for " .. GetConVar("discord_muter_dart_time"):GetInt() .. " seconds."
+    desc = str
   };
 end
 
