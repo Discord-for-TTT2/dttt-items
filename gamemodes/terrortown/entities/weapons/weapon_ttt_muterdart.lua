@@ -99,7 +99,7 @@ function SWEP:ShootBullet(damage, recoil, num_bullets, cone)
       hook.Run("DTTTMute", victim, muteTime);
       local str = ""
       if muteTime then
-        str = muteTime + " seconds."
+        str = muteTime .. " seconds."
       else
         str = "the entire round."
       end
