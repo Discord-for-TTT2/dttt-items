@@ -15,7 +15,7 @@ if CLIENT then
   SWEP.ViewModelFlip = false;
   SWEP.ViewModelFOV = 54;
   -- Path to the icon material
-  SWEP.Icon = "VGUI/ttt/icon_muterdart.vtf";
+  SWEP.Icon = "VGUI/ttt/icon_muterdart.vmt";
 
   local str = ""
 
