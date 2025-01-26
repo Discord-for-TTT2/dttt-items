@@ -15,7 +15,10 @@ if CLIENT then
   SWEP.ViewModelFlip = false;
   SWEP.ViewModelFOV = 54;
   -- Path to the icon material
-  SWEP.Icon = "VGUI/ttt/icon_muterdart.vtf";
+  SWEP.Icon = "VGUI/ttt/icon_muterdart";
+  if not file.Exists("materials/VGUI/ttt/icon_muterdart.vmt", "GAME") then
+    print("[Discord Muter Dart] Warning: Missing material for Muter Dart icon.")
+  end
 
   local str = ""
 
