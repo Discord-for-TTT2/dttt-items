@@ -1,6 +1,6 @@
---[[Author informations]]
+--[[Author information]]
 --
-SWEP.Author = "Manix84"; -- The orginal author of this addon
+SWEP.Author = "Manix84"; -- The original author of this addon
 SWEP.Contact = "https://steamcommunity.com/id/manix84";
 
 if (SERVER) then
@@ -9,7 +9,6 @@ if (SERVER) then
 end
 
 if CLIENT then
-  CreateClientConVar("discord_muter_dart_time", 15, false)
   SWEP.PrintName = "Muter Dart";
   SWEP.Slot = 6;
   SWEP.ViewModelFlip = false;
@@ -22,7 +21,7 @@ if CLIENT then
   if ConVarExists("discord_muter_dart_time") and GetConVar("discord_muter_dart_time"):GetInt() ~= nil then
     str = "Mute a players discord for " .. GetConVar("discord_muter_dart_time"):GetInt() .. " seconds."
   else
-    str = "Mute a player in discord."
+    str = "Mute a player in discord for the entire round."
   end
 
   print("[dttt-items][MuterDartTime]", GetConVar("discord_muter_dart_time"):GetInt())
