@@ -7,6 +7,7 @@ CreateConVar("discord_muter_dart_time", 15, {FCVAR_ARCHIVE,FCVAR_REPLICATED}, "H
 if (SERVER) then
   AddCSLuaFile();
   resource.AddFile("materials/vgui/ttt/muterdart_icon.vmt")
+  resource.AddFile("materials/vgui/ttt/muterdart_icon.vft")
 end
 
 if CLIENT then
