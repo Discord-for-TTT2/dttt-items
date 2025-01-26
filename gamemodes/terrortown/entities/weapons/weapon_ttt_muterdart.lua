@@ -6,8 +6,8 @@ CreateConVar("discord_muter_dart_time", 15, {FCVAR_ARCHIVE,FCVAR_REPLICATED}, "H
 
 if (SERVER) then
   AddCSLuaFile();
-  resource.AddFile("materials/vgui/ttt/icon_muterdart.vmt")
-  resource.AddFile("materials/vgui/ttt/icon_muterdart.vtf")
+  resource.AddFile("materials/VGUI/ttt/icon_muterdart.vmt")
+  resource.AddFile("materials/VGUI/ttt/icon_muterdart.vtf")
 end
 
 if CLIENT then
@@ -15,7 +15,7 @@ if CLIENT then
   SWEP.ViewModelFlip = false;
   SWEP.ViewModelFOV = 54;
   -- Path to the icon material
-  SWEP.Icon = "vgui/ttt/icon_muterdart.vtf";
+  SWEP.Icon = "VGUI/ttt/icon_muterdart.vtf";
 
   local str = ""
 
