@@ -6,15 +6,15 @@ CreateConVar("discord_muter_dart_time", 15, {FCVAR_ARCHIVE,FCVAR_REPLICATED}, "H
 
 if (SERVER) then
   AddCSLuaFile();
+  resource.AddFile("materials/vgui/ttt/muterdart_icon.vmt")
 end
 
 if CLIENT then
   SWEP.PrintName = "Muter Dart";
-  SWEP.Slot = 6;
   SWEP.ViewModelFlip = false;
   SWEP.ViewModelFOV = 54;
   -- Path to the icon material
-  SWEP.Icon = "VGUI/ttt/icon_discord_muter_dart";
+  SWEP.Icon = "vgui/ttt/muterdart_icon.vtf";
 
   local str = ""
 
@@ -33,10 +33,6 @@ if CLIENT then
   };
 end
 
-if SERVER then
-  resource.AddFile("materials/VGUI/ttt/icon_discord_muter_dart.vmt");
-end
-
 -- Always derive from weapon_tttbase.
 SWEP.Base = "weapon_tttbase";
 --- Standard GMod values
@@ -47,9 +43,8 @@ SWEP.Primary.Automatic = false;
 SWEP.Primary.Damage = 0;
 SWEP.Primary.Cone = 0.02;
 SWEP.Primary.Ammo = "muter_dart";
-SWEP.Primary.ClipSize = 5;
-SWEP.Primary.ClipMax = 15; -- This isn't working, and I don't know why.
-SWEP.Primary.DefaultClip = 15;
+SWEP.Primary.ClipSize = 1;
+SWEP.Primary.DefaultClip = 1;
 SWEP.Primary.Sound = Sound("Weapon_USP.SilencedShot");
 SWEP.Primary.SoundLevel = 50;
 SWEP.Primary.Force = 0;
