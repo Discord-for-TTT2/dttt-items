@@ -1,6 +1,6 @@
 "UnlitGeneric"
 {
- "$basetexture" "vgui/ttt/muterdart_icon"
+ "$basetexture" "VGUI/ttt/muterdart_icon"
  "$vertexcolor" 1
  "$vertexalpha" 1
  "$translucent" 1
