@@ -2,14 +2,13 @@
 --
 SWEP.Author = "Manix84"; -- The orginal author of this addon
 SWEP.Contact = "https://steamcommunity.com/id/manix84";
+CreateConVar("discord_muter_dart_time", 15, {FCVAR_ARCHIVE,FCVAR_REPLICATED}, "How long to mute the player.");
 
 if (SERVER) then
   AddCSLuaFile();
-  CreateConVar("discord_muter_dart_time", 15, {FCVAR_ARCHIVE,FCVAR_REPLICATED}, "How long to mute the player.");
 end
 
 if CLIENT then
-  CreateClientConVar("discord_muter_dart_time", 15, false)
   SWEP.PrintName = "Muter Dart";
   SWEP.Slot = 6;
   SWEP.ViewModelFlip = false;
