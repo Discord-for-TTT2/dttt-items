@@ -11,6 +11,9 @@ Dependencies:
 
 ### Muter Dart
 
+Originally developed by [Manix84](https://github.com/manix84)
+and licensed under MIT.
+
 #### Features
 
 - 5 Darts.
