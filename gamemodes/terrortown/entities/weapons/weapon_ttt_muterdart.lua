@@ -26,8 +26,6 @@ local ATTACKS = {
   "MUTE_DEAFEN"
 }
 
-local current_attack = 1
-
 
 if (SERVER) then
   AddCSLuaFile();
@@ -66,7 +64,7 @@ if CLIENT then
   };
 
   function getHudText()
-    local attack = ATTACKS[current_attack];
+    local attack = ATTACKS[self.current_attack];
     local str = "";
     if attack == "MUTE" then
       str = "Mute";
@@ -173,7 +171,7 @@ function SWEP:CanPrimaryAttack()
     return
   end
 
-  local attack = ATTACKS[current_attack]
+  local attack = ATTACKS[self.current_attack]
   return self:Clip1() >= getCost(attack);
 end
 
@@ -198,7 +196,7 @@ function SWEP:PrimaryAttack(worldsnd)
       self.Primary.NumShots,
       self:GetPrimaryCone()
   )
-  self:TakePrimaryAmmo(getCost(ATTACKS[current_attack]))
+  self:TakePrimaryAmmo(getCost(ATTACKS[self.current_attack]))
 
   local owner = self:GetOwner()
 
@@ -216,8 +214,8 @@ function SWEP:PrimaryAttack(worldsnd)
 end
 
 function SWEP:SecondaryAttack()
-  current_attack = current_attack + 1
-  if (current_attack > #ATTACKS) then current_attack = 1 end
+  self.current_attack = self.current_attack + 1
+  if (self.current_attack > #ATTACKS) then self.current_attack = 1 end
 
   if CLIENT then
     local primary, secondary = getHudText()
@@ -225,11 +223,33 @@ function SWEP:SecondaryAttack()
   end
 end
 
+function SWEP:Initialize()
+  self.current_attack = 1
+
+  if self.EnableConfigurableClip then
+      self.Primary.ClipSize = self.ConfigurableClip or self.Primary.DefaultClip
+
+      self:SetClip1(self.ConfigurableClip or self.Primary.DefaultClip)
+  end
+
+  if CLIENT and self:Clip1() == -1 then
+      self:SetClip1(self.Primary.DefaultClip)
+  elseif SERVER then
+      self.fingerprints = {}
+
+      self:SetZoom(false)
+      self:SetIronsights(false)
+  end
+
+  self:SetDeploySpeed(self.DeploySpeed)
+  self:SetHoldType(self.HoldType or "pistol")
+end
+
 function SWEP:ShootBullet(damage, recoil, num_bullets, cone)
   local owner = self:GetOwner();
   local muteTime = GetConVar("dttt_md_mute_time"):GetInt();
   local deafenTime = GetConVar("dttt_md_deafen_time"):GetInt();
-  local attack = ATTACKS[current_attack];
+  local attack = ATTACKS[self.current_attack];
   local dart = {};
   dart.Num = num_bullets;
   dart.Src = owner:GetShootPos();
