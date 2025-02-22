@@ -63,7 +63,7 @@ if CLIENT then
     desc = str
   };
 
-  function getHudText()
+  function SWEP:GetHudText()
     local attack = ATTACKS[self.current_attack];
     local str = "";
     if attack == "MUTE" then
@@ -83,7 +83,7 @@ if CLIENT then
   end
 
   function SWEP:Deploy()
-    local primary, secondary = getHudText()
+    local primary, secondary = SWEP:GetHudText()
     self:AddTTT2HUDHelp(primary, secondary);
   end
 
@@ -218,7 +218,7 @@ function SWEP:SecondaryAttack()
   if (self.current_attack > #ATTACKS) then self.current_attack = 1 end
 
   if CLIENT then
-    local primary, secondary = getHudText()
+    local primary, secondary = SWEP:GetHudText()
     self:AddTTT2HUDHelp(primary, secondary);
   end
 end
