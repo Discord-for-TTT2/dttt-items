@@ -64,6 +64,7 @@ if CLIENT then
   };
 
   function SWEP:GetHudText()
+    dttt_logger.PrintLog("items", "GetHudText", true)
     local attack = ATTACKS[self.current_attack];
     local str = "";
     if attack == "MUTE" then
@@ -83,11 +84,14 @@ if CLIENT then
   end
 
   function SWEP:Deploy()
+    dttt_logger.PrintLog("items", "Deploy", true)
     local primary, secondary = self:GetHudText()
     self:AddTTT2HUDHelp(primary, secondary);
   end
 
   function SWEP:AddToSettingsMenu(parent)
+
+  dttt_logger.PrintLog("items", "AddToSettingsMenu", true)
     local form = vgui.CreateTTT2Form(parent, "header_equipment_additional")
 
     form:MakeHelp({
@@ -167,6 +171,8 @@ SWEP.IsSilent = false;
 SWEP.NoSights = true;
 
 function SWEP:CanPrimaryAttack()
+
+  dttt_logger.PrintLog("items", "PrimaryAttack Check", true)
   if not IsValid(self:GetOwner()) then
     return
   end
@@ -177,6 +183,8 @@ end
 
 -- this is just from the original TTT2 weapon_ttt_base, but having the TakePrimaryAmmo changed
 function SWEP:PrimaryAttack(worldsnd)
+
+  dttt_logger.PrintLog("items", "Primary Attack", true)
   self:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
   self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 
@@ -214,6 +222,7 @@ function SWEP:PrimaryAttack(worldsnd)
 end
 
 function SWEP:SecondaryAttack()
+  dttt_logger.PrintLog("items", "Secondary Attack", true)
   self.current_attack = self.current_attack + 1
   if (self.current_attack > #ATTACKS) then self.current_attack = 1 end
 
@@ -224,6 +233,7 @@ function SWEP:SecondaryAttack()
 end
 
 function SWEP:Initialize()
+  dttt_logger.PrintLog("items", "Initialize", true)
   self.current_attack = 1
 
   if self.EnableConfigurableClip then
@@ -246,6 +256,8 @@ function SWEP:Initialize()
 end
 
 function SWEP:ShootBullet(damage, recoil, num_bullets, cone)
+
+  dttt_logger.PrintLog("items", "ShootBullet", true)
   local owner = self:GetOwner();
   local muteTime = GetConVar("dttt_md_mute_time"):GetInt();
   local deafenTime = GetConVar("dttt_md_deafen_time"):GetInt();
