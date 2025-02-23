@@ -83,12 +83,6 @@ if CLIENT then
     return primary_text, secondary_text
   end
 
-  function SWEP:Deploy()
-    dttt_logger.PrintLog("items", "Deploy", true)
-    local primary, secondary = self:GetHudText()
-    self:AddTTT2HUDHelp(primary, secondary);
-  end
-
   function SWEP:AddToSettingsMenu(parent)
 
   dttt_logger.PrintLog("items", "AddToSettingsMenu", true)
@@ -170,6 +164,17 @@ SWEP.AllowDrop = true;
 SWEP.IsSilent = false;
 SWEP.NoSights = true;
 
+
+
+function SWEP:Deploy()
+  dttt_logger.PrintLog("items", "Deploy", true)
+  if CLIENT then
+    local primary, secondary = self:GetHudText()
+    self:AddTTT2HUDHelp(primary, secondary);
+  end
+  return self.BaseClass.Deploy(self)
+end
+
 function SWEP:CanPrimaryAttack()
 
   dttt_logger.PrintLog("items", "PrimaryAttack Check", true)
@@ -231,7 +236,7 @@ function SWEP:SecondaryAttack()
     self:AddTTT2HUDHelp(primary, secondary);
   end
 
-  self:SetNextSecondaryFire(CurTime() + 1);
+  self:SetNextSecondaryFire(CurTime() + 2);
 end
 
 function SWEP:Initialize()
