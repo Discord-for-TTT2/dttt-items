@@ -231,7 +231,7 @@ function SWEP:SecondaryAttack()
     self:AddTTT2HUDHelp(primary, secondary);
   end
 
-  self:SetNextSecondaryFire(CurTime() + 0);
+  self:SetNextSecondaryFire(CurTime() + 1);
 end
 
 function SWEP:Initialize()
