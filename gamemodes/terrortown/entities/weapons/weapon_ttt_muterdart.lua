@@ -84,8 +84,7 @@ if CLIENT then
   end
 
   function SWEP:AddToSettingsMenu(parent)
-
-  dttt_logger.PrintLog("items", "AddToSettingsMenu", true)
+    dttt_logger.PrintLog("items", "AddToSettingsMenu", true)
     local form = vgui.CreateTTT2Form(parent, "header_equipment_additional")
 
     form:MakeHelp({
@@ -172,6 +171,7 @@ function SWEP:Deploy()
     local primary, secondary = self:GetHudText()
     self:AddTTT2HUDHelp(primary, secondary);
   end
+
   return self.BaseClass.Deploy(self)
 end
 
@@ -227,14 +227,16 @@ function SWEP:PrimaryAttack(worldsnd)
 end
 
 function SWEP:SecondaryAttack()
-  dttt_logger.PrintLog("items", "Secondary Attack", true);
+  local old = ATTACKS[self.current_attack]
   self.current_attack = self.current_attack + 1;
   if (self.current_attack > #ATTACKS) then self.current_attack = 1 end
-
+  
   if CLIENT then
     local primary, secondary = self:GetHudText();
     self:AddTTT2HUDHelp(primary, secondary);
   end
+
+  dttt_logger.PrintLog("items", "Secondary Attack [old] " .. old .. " [new] " .. ATTACKS[self.current_attack], true);
 
   self:SetNextSecondaryFire(CurTime() + 2);
 end
