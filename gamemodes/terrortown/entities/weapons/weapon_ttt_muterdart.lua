@@ -221,14 +221,16 @@ function SWEP:PrimaryAttack(worldsnd)
   )
 end
 
-function SWEP:SecondaryAttack()
-  dttt_logger.PrintLog("items", "Secondary Attack", true)
-  self.current_attack = self.current_attack + 1
-  if (self.current_attack > #ATTACKS) then self.current_attack = 1 end
+if SERVER then
+  function SWEP:SecondaryAttack()
+    dttt_logger.PrintLog("items", "Secondary Attack", true)
+    self.current_attack = self.current_attack + 1
+    if (self.current_attack > #ATTACKS) then self.current_attack = 1 end
 
-  if CLIENT then
-    local primary, secondary = self:GetHudText()
-    self:AddTTT2HUDHelp(primary, secondary);
+    if CLIENT then
+      local primary, secondary = self:GetHudText()
+      self:AddTTT2HUDHelp(primary, secondary);
+    end
   end
 end
 
