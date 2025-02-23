@@ -31,6 +31,7 @@ if (SERVER) then
   AddCSLuaFile();
   resource.AddFile("materials/VGUI/ttt/icon_muterdart.vmt")
   resource.AddFile("materials/VGUI/ttt/icon_muterdart.vtf")
+  util.AddNetworkString("DTTTMuterDartMode")
 end
 
 if CLIENT then
@@ -63,9 +64,9 @@ if CLIENT then
     desc = str
   };
 
-  function SWEP:GetHudText()
+  function SWEP:GetHudText(mode)
     dttt_logger.PrintLog("items", "GetHudText", true)
-    local attack = ATTACKS[self.current_attack];
+    local attack = ATTACKS[mode];
     local str = "";
     if attack == "MUTE" then
       str = "Mute";
@@ -164,12 +165,20 @@ SWEP.IsSilent = false;
 SWEP.NoSights = true;
 
 
+if SERVER then
+  function updateAttackMode(swep)
+    net.Start("DTTTMuterDartMode")
+    net.WriteInt(swep.current_attack, 6)
+    net.Send(swep:GetOwner())
+  end
+end
+
 
 function SWEP:Deploy()
   dttt_logger.PrintLog("items", "Deploy", true)
-  if CLIENT then
-    local primary, secondary = self:GetHudText()
-    self:AddTTT2HUDHelp(primary, secondary);
+
+  if SERVER then
+    updateAttackMode(self)
   end
 
   return self.BaseClass.Deploy(self)
@@ -177,10 +186,12 @@ end
 
 function SWEP:CanPrimaryAttack()
 
-  dttt_logger.PrintLog("items", "PrimaryAttack Check", true)
+  dttt_logger.PrintLog("items", "PrimaryAttack Check S1", true)
   if not IsValid(self:GetOwner()) then
     return
   end
+
+  dttt_logger.PrintLog("items", "PrimaryAttack Check S2", true)
 
   local attack = ATTACKS[self.current_attack]
   return self:Clip1() >= getCost(attack);
@@ -226,47 +237,76 @@ function SWEP:PrimaryAttack(worldsnd)
   )
 end
 
-function SWEP:SecondaryAttack()
-  local old = ATTACKS[self.current_attack]
-  self.current_attack = self.current_attack + 1;
-  if (self.current_attack > #ATTACKS) then self.current_attack = 1 end
-  
-  if CLIENT then
-    local primary, secondary = self:GetHudText();
-    self:AddTTT2HUDHelp(primary, secondary);
-  end
+function SWEP:SetIronsights()
+  dttt_logger.PrintLog("items", "SetIronsights", true);
+  return false
+end
 
-  dttt_logger.PrintLog("items", "Secondary Attack [old] " .. old .. " [new] " .. ATTACKS[self.current_attack], true);
+function SWEP:GetIronsights()
+  -- dttt_logger.PrintLog("items", "GetIronsights", true);
+  return false
+end
+
+function SWEP:SetZoom(b)
+  dttt_logger.PrintLog("items", "SetZoom", true);
+end
+
+function SWEP:Reload()
+  dttt_logger.PrintLog("items", "Reload", true);
+end
+
+function SWEP:DryFire(setnext)
+  dttt_logger.PrintLog("items", "DryFire " .. setnext, true);
+  return
+end
+
+function SWEP:CanSecondaryAttack()
+  dttt_logger.PrintLog("items", "Secondary Attack overwritten", true);
+  return true
+end
+
+function SWEP:SecondaryAttack()
+  if SERVER then
+    local old = ATTACKS[self.current_attack]
+    self.current_attack = self.current_attack + 1;
+    if (self.current_attack > #ATTACKS) then self.current_attack = 1 end
+
+    dttt_logger.PrintLog("items", "Secondary Attack [old] " .. old .. " [new] " .. ATTACKS[self.current_attack], true);
+    updateAttackMode(self)
+  end
 
   self:SetNextSecondaryFire(CurTime() + 2);
 end
+
 
 function SWEP:Initialize()
   dttt_logger.PrintLog("items", "Initialize", true)
   self.current_attack = 1
 
-  if self.EnableConfigurableClip then
-      self.Primary.ClipSize = self.ConfigurableClip or self.Primary.DefaultClip
-
-      self:SetClip1(self.ConfigurableClip or self.Primary.DefaultClip)
+  if SERVER then
+    updateAttackMode(self)
   end
 
-  if CLIENT and self:Clip1() == -1 then
-      self:SetClip1(self.Primary.DefaultClip)
-  elseif SERVER then
-      self.fingerprints = {}
+  self:SetClip1(self.Primary.DefaultClip)
+  self:SetHoldType("pistol")
 
-      self:SetZoom(false)
-      self:SetIronsights(false)
+  if CLIENT then
+    net.Receive("DTTTMuterDartMode", function()
+      local mode = net.ReadInt(6)
+      local primary, secondary = self:GetHudText(mode)
+      self.current_attack = mode
+      self:AddTTT2HUDHelp(primary, secondary);
+    end)
   end
-
-  self:SetDeploySpeed(self.DeploySpeed)
-  self:SetHoldType(self.HoldType or "pistol")
 end
 
 function SWEP:ShootBullet(damage, recoil, num_bullets, cone)
-
   dttt_logger.PrintLog("items", "ShootBullet", true)
+
+  if SERVER then
+    updateAttackMode(self)
+  end
+
   local owner = self:GetOwner();
   local muteTime = GetConVar("dttt_md_mute_time"):GetInt();
   local deafenTime = GetConVar("dttt_md_deafen_time"):GetInt();
