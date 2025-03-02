@@ -65,7 +65,6 @@ if CLIENT then
   };
 
   function SWEP:GetHudText(mode)
-    dttt_logger.PrintLog("items", "GetHudText", true)
     local attack = ATTACKS[mode];
     local str = "";
     if attack == "MUTE" then
@@ -85,7 +84,6 @@ if CLIENT then
   end
 
   function SWEP:AddToSettingsMenu(parent)
-    dttt_logger.PrintLog("items", "AddToSettingsMenu", true)
     local form = vgui.CreateTTT2Form(parent, "header_equipment_additional")
 
     form:MakeHelp({
@@ -175,7 +173,6 @@ end
 
 
 function SWEP:Deploy()
-  dttt_logger.PrintLog("items", "Deploy", true)
 
   if SERVER then
     updateAttackMode(self)
@@ -186,12 +183,9 @@ end
 
 function SWEP:CanPrimaryAttack()
 
-  dttt_logger.PrintLog("items", "PrimaryAttack Check S1", true)
   if not IsValid(self:GetOwner()) then
     return
   end
-
-  dttt_logger.PrintLog("items", "PrimaryAttack Check S2", true)
 
   local attack = ATTACKS[self.current_attack]
   return self:Clip1() >= getCost(attack);
@@ -199,8 +193,6 @@ end
 
 -- this is just from the original TTT2 weapon_ttt_base, but having the TakePrimaryAmmo changed
 function SWEP:PrimaryAttack(worldsnd)
-
-  dttt_logger.PrintLog("items", "Primary Attack", true)
   self:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
   self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 
@@ -238,30 +230,24 @@ function SWEP:PrimaryAttack(worldsnd)
 end
 
 function SWEP:SetIronsights()
-  dttt_logger.PrintLog("items", "SetIronsights", true);
   return false
 end
 
 function SWEP:GetIronsights()
-  -- dttt_logger.PrintLog("items", "GetIronsights", true);
   return false
 end
 
 function SWEP:SetZoom(b)
-  dttt_logger.PrintLog("items", "SetZoom", true);
 end
 
 function SWEP:Reload()
-  dttt_logger.PrintLog("items", "Reload", true);
 end
 
 function SWEP:DryFire(setnext)
-  dttt_logger.PrintLog("items", "DryFire " .. setnext, true);
   return
 end
 
 function SWEP:CanSecondaryAttack()
-  dttt_logger.PrintLog("items", "Secondary Attack overwritten", true);
   return true
 end
 
@@ -271,7 +257,6 @@ function SWEP:SecondaryAttack()
     self.current_attack = self.current_attack + 1;
     if (self.current_attack > #ATTACKS) then self.current_attack = 1 end
 
-    dttt_logger.PrintLog("items", "Secondary Attack [old] " .. old .. " [new] " .. ATTACKS[self.current_attack], true);
     updateAttackMode(self)
   end
 
@@ -280,7 +265,6 @@ end
 
 
 function SWEP:Initialize()
-  dttt_logger.PrintLog("items", "Initialize", true)
   self.current_attack = 1
 
   if SERVER then
@@ -301,8 +285,6 @@ function SWEP:Initialize()
 end
 
 function SWEP:ShootBullet(damage, recoil, num_bullets, cone)
-  dttt_logger.PrintLog("items", "ShootBullet", true)
-
   if SERVER then
     updateAttackMode(self)
   end
